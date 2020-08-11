@@ -1,0 +1,24 @@
+{
+    "name": "topggvoter",
+    "version": "1.0.0",
+    "description": "A simple topgg bot voter made with puppeteer and love.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "bot",
+        "topggvoter",
+        "discord",
+        "discordbotlist",
+        "tokens"
+    ],
+    "author": "notsapinho",
+    "license": "ISC",
+    "dependencies": {
+        "ora": "^5.0.0",
+        "puppeteer": "^5.2.1",
+        "puppeteer-extra": "^3.1.13",
+        "puppeteer-extra-plugin-stealth": "^2.5.0"
+    }
+}
