@@ -9,17 +9,25 @@ const spinner = {
     frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 };
 
-console.clear();
-
 function vote(token) {
     return new Promise(async function (resolve, reject) {
         await puppeteer
             .launch({
+                 
+                //For Linux or WSL 
+
                 executablePath: "/usr/bin/chromium-browser",
-                headless: true,
-                slowMo: 10,
-                args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"]
-                // args: ["--auto-open-devtools-for-tabs"]
+                args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],                
+
+                /*
+                // For Windows
+
+                executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", 
+                args: ["--auto-open-devtools-for-tabs"],
+
+                */
+                headless: true, // Open chrome or not(true means that is off)
+                slowMo: 10
             })
             .then(async (browser) => {
                 console.log(`[EXECUTANDO COMO]: ${token}`);
@@ -38,12 +46,11 @@ function vote(token) {
                 }).start();
 
                 await page.goto(
-                    "https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D264434993625956352%26scope%3Didentify%26redirect_uri%3Dhttps%253A%252F%252Ftop.gg%252Flogin%252Fcallback%26response_type%3Dcode"
+                    "https://discord.com/login?redirect_to=%2Foauth2%2Fauthorize%3Fclient_id%3D264434993625956352%26scope%3Didentify%26redirect_uri%3Dhttps%253A%252F%252Ftop.gg%252Flogin%252Fcallback%26response_type%3Dcode",
+                    { waitUntil: "networkidle0" }
                 );
 
-                await page.waitFor(8000);
-
-                connectLog.succeed(`[CONNECTED TO DISCORD]`);
+                connectLog.succeed("[CONNECTED TO DISCORD]");
 
                 const discordLog = logger({
                     text: "[LOGGING INTO DISCORD]",
@@ -55,22 +62,24 @@ function vote(token) {
                         document.body.appendChild(document.createElement("iframe")).contentWindow.localStorage.token = `"${_token}"`;
                         setTimeout(() => {
                             location.reload();
-                        }, 2000);
+                        }, 200);
                     }
 
                     login(_);
                 }, token);
 
-                await page.waitFor(8000);
+                await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                if (page.url() == "https://discord.com/login") return resolve(discordLog.fail(`[COULDN'T CONNECT TO DISCORD]`));
+                if (page.url() == "https://discord.com/login") return resolve(discordLog.fail('[COULDN'T CONNECT TO DISCORD]''));
 
-                discordLog.succeed(`[LOGGED INTO DISCORD]`);
+                discordLog.succeed('[LOGGED INTO DISCORD]');
 
                 const oauth2Log = logger({
                     text: "[LOGGING INTO OAUTH2]",
                     spinner
                 }).start();
+
+                await page.waitForNavigation({ waitUntil: "networkidle0" });
 
                 await page.evaluate((_) => {
                     Array.from(document.querySelectorAll("div"))
@@ -78,13 +87,11 @@ function vote(token) {
                         .parentElement.click();
                 });
 
-                await page.waitFor(8000);
+                await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                oauth2Log.succeed(`[LOGGING INTO OAUTH2]`);
+                oauth2Log.succeed('[LOGGING INTO OAUTH2]');
 
-                await page.goto(`https://top.gg/bot/${config.botID}/vote`);
-
-                await page.waitFor(8000);
+                await page.goto(`https://top.gg/bot/${config.botID}/vote`, { waitUntil: "networkidle0" });
 
                 const voteLog = logger({
                     text: "[VOTING]",
@@ -98,9 +105,9 @@ function vote(token) {
                     } else return false;
                 });
 
-                if (!btn) return resolve(voteLog.fail(`[BLOCKED TOKEN]`));
+                if (!btn) return resolve(voteLog.fail('[BLOCKED TOKEN]'));
 
-                await page.waitFor(10000);
+                await page.waitFor(3000);
 
                 const text = await page.evaluate((_) => {
                     return document.querySelector("#votingvoted").innerText;
@@ -124,6 +131,8 @@ function vote(token) {
     });
 }
 
+console.clear();
+
 (async () => {
     for (let i = 0; i < config.tokens.length; i++) {
         const x = await vote(config.tokens[i]);
@@ -131,17 +140,3 @@ function vote(token) {
         else break;
     }
 })();
-
-// const { CronJob } = require("cron");
-
-// const job = new CronJob(
-//     "0 */12 * * * *",
-//     () => {
-//         console.log("You will see this message every second");
-//     },
-//     null,
-//     true,
-//     "America/Sao_Paulo"
-// );
-
-// job.start();
