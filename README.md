@@ -17,7 +17,7 @@ You can use this application to get inumerous votes on your bot on [Top.gg](http
 
 ### Running it periodically
 
-I haven't tested it out yet, but you still can use [`cron`](https://www.npmjs.com/package/cron). [`Cron`](https://www.npmjs.com/package/cron) basically runs a function periodically according to what you have set on his config, as [Top.gg](https://top.gg) gives you a 12 hours delay to vote you can use the code below:
+I haven't tested it out yet, but you can use [`cron`](https://www.npmjs.com/package/cron) library. [`Cron`](https://www.npmjs.com/package/cron) basically runs a function periodically according to what you have set on his config, as [Top.gg](https://top.gg) gives you a 12 hours delay to vote, you can use the code below:
 
 ```javascript
 const { CronJob } = require("cron");
