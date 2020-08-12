@@ -1,5 +1,5 @@
 const { CronJob } = require("cron");
-const config = require("config");
+const config = require("./config");
 const vote = require("./Scraper");
 
 const job = new CronJob(

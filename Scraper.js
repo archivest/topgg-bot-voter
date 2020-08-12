@@ -1,5 +1,5 @@
 const logger = require("ora");
-const config = require("./config");
+const config = require("./modified/config");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
