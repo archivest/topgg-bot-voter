@@ -13,11 +13,10 @@ function vote(token) {
     return new Promise(async function (resolve, reject) {
         await puppeteer
             .launch({
-                 
-                //For Linux or WSL 
+                //For Linux or WSL
 
                 executablePath: "/usr/bin/chromium-browser",
-                args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],                
+                args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],
 
                 /*
                 // For Windows
@@ -70,9 +69,9 @@ function vote(token) {
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                if (page.url() == "https://discord.com/login") return resolve(discordLog.fail('[COULDN'T CONNECT TO DISCORD]''));
+                if (page.url() == "https://discord.com/login") return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
 
-                discordLog.succeed('[LOGGED INTO DISCORD]');
+                discordLog.succeed("[LOGGED INTO DISCORD]");
 
                 const oauth2Log = logger({
                     text: "[LOGGING INTO OAUTH2]",
@@ -89,7 +88,7 @@ function vote(token) {
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                oauth2Log.succeed('[LOGGING INTO OAUTH2]');
+                oauth2Log.succeed("[LOGGING INTO OAUTH2]");
 
                 await page.goto(`https://top.gg/bot/${config.botID}/vote`, { waitUntil: "networkidle0" });
 
@@ -105,7 +104,7 @@ function vote(token) {
                     } else return false;
                 });
 
-                if (!btn) return resolve(voteLog.fail('[BLOCKED TOKEN]'));
+                if (!btn) return resolve(voteLog.fail("[BLOCKED TOKEN]"));
 
                 await page.waitFor(3000);
 

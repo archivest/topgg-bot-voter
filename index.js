@@ -1,5 +1,5 @@
 const vote = require("./Scraper");
-const config = require("config");
+const config = require("./config");
 
 (async () => {
     console.clear();
