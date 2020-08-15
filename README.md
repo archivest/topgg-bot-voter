@@ -40,4 +40,4 @@ job.start();
 Or if you are lazy, we already made it for you, just type `npm run cron` in terminal.
 
 ## Any problems?
-Contact me on discord `notsapinho#2975`
+Contact me on Discord `notsapinho#2975`
