@@ -7,5 +7,5 @@ const config = require("./config");
         const x = await vote(config.tokens[i]);
         if (x) continue;
         else break;
-    }
+    };
 })();
