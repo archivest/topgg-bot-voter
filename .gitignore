@@ -105,6 +105,6 @@ dist
 
 package-lock.json
 
-modified/
+config.js
 
 prints/*
