@@ -109,7 +109,10 @@ function vote(token) {
                     } else return false;
                 });
 
-                if (!btn) return resolve(voteLog.fail("[BLOCKED TOKEN]"));
+                if (!btn) {
+                    await browser.close();
+                    return resolve(voteLog.fail("[BLOCKED TOKEN]"));
+                }
 
                 await page.waitFor(3000);
 
@@ -124,7 +127,7 @@ function vote(token) {
                     return resolve(voteLog.fail(`[BLOCKED TOKEN]`));
                 } else {
                     await browser.close();
-                    return voteLog.fail(`[ALREADY VOTED TO ${config.botID}]`);
+                    voteLog.fail(`[ALREADY VOTED TO ${config.botID}]`);
                 }
 
                 await page.screenshot({ path: `./prints/${token}.png` });
