@@ -11,9 +11,9 @@ You can use this application to get inumerous votes on your bot on [Top.gg](http
 ### Downloading
 
 -   Download the source or clone the repo with `git clone`.
--   If you don't have download [`NodeJS`](https://nodejs.org).
+-   Install [`NodeJS`](https://nodejs.org).
 -   After installing [`NodeJS`](https://nodejs.org) run `npm i` in the terminal to install the dependencies.
--   Rename `config.example.js` to `config.js` and change `botID` to the id you want and add tokens so you can vote.
+-   Rename `config.example.js` to `config.js` and change `botID` to the id you want and add tokens so the bot can vote.
 -   After this all you can run `npm start`.
 
 ### Running it periodically
@@ -38,3 +38,6 @@ job.start();
 ```
 
 Or if you are lazy, we already made it for you, just type `npm run cron` in terminal.
+
+## Any problems?
+Contact me on Discord `notsapinho#2975`
