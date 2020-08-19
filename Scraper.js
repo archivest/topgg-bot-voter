@@ -17,8 +17,7 @@ function vote(token) {
 
                 //executablePath: "/usr/bin/chromium-browser",
                 //args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],
-
-               
+             
                 // For Windows
 
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", 
@@ -72,7 +71,7 @@ function vote(token) {
                 discordLog.succeed("[LOGGED INTO DISCORD]");
 
                 const oauth2Log = logger({
-                    text: "[LOGGING INTO OAUTH2]",
+                    text: "[LOGGED INTO OAUTH2]",
                     spinner
                 }).start();
 
