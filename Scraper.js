@@ -25,7 +25,7 @@ function vote(token) {
 
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
 
-                headless: true, // Open chrome or not(true means that is off)
+                headless: false, // Open chrome or not(true means that is off), recommended to be false 
                 slowMo: 10
             })
             .then(async (browser) => {
