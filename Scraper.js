@@ -1,5 +1,5 @@
 const logger = require("ora");
-const config = require("./modified/config");
+const config = require("./config");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 puppeteer.use(StealthPlugin());
@@ -17,12 +17,12 @@ function vote(token) {
 
                 //executablePath: "/usr/bin/chromium-browser",
                 //args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],
-             
+
                 // For Windows
 
-                executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", 
+                executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
 
-                headless: true, // Open chrome or not(true means that is off)
+                headless: false, // Open chrome or not(true means that is off)
                 slowMo: 10
             })
             .then(async (browser) => {
@@ -66,7 +66,7 @@ function vote(token) {
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                if (page.url() == "https://discord.com/login") return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
+                if (page.url() === "https://discord.com/login") return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
 
                 discordLog.succeed("[LOGGED INTO DISCORD]");
 
@@ -84,6 +84,8 @@ function vote(token) {
                 });
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
+
+                await page.waitForSelector("#home-page");
 
                 oauth2Log.succeed("[LOGGED INTO OAUTH2]");
 
