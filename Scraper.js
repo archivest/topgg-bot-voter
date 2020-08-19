@@ -25,7 +25,7 @@ function vote(token) {
 
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
 
-                headless: false, // Open chrome or not(true means that is off)
+                headless: true, // Open chrome or not(true means that is off)
                 slowMo: 10
             })
             .then(async (browser) => {
@@ -69,10 +69,7 @@ function vote(token) {
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                if (page.url() === "https://discord.com/login") {
-                    await browser.close();
-                    return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
-                }
+                if (page.url() === "https://discord.com/login") return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
 
                 discordLog.succeed("[LOGGED INTO DISCORD]");
 
@@ -109,10 +106,7 @@ function vote(token) {
                     } else return false;
                 });
 
-                if (!btn) {
-                    await browser.close();
-                    return resolve(voteLog.fail("[BLOCKED TOKEN]"));
-                }
+                if (!btn) return resolve(voteLog.fail("[BLOCKED TOKEN]"));
 
                 await page.waitFor(3000);
 
@@ -122,11 +116,8 @@ function vote(token) {
 
                 if (text != "You already voted for this bot. Try again in 12 hours.") {
                     voteLog.succeed(`[VOTED TO ${config.botID}]`);
-                } else if (!text) {
-                    await browser.close();
-                    return resolve(voteLog.fail(`[BLOCKED TOKEN]`));
-                } else {
-                    await browser.close();
+                } else if (!text) return resolve(voteLog.fail(`[BLOCKED TOKEN]`));
+                else {
                     voteLog.fail(`[ALREADY VOTED TO ${config.botID}]`);
                 }
 

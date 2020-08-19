@@ -8,4 +8,5 @@ const config = require("./config");
         if (x) continue;
         else break;
     }
+    process.exit(0);
 })();
