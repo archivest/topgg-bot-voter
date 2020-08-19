@@ -71,7 +71,7 @@ function vote(token) {
 
                 if (page.url() === "https://discord.com/login") return resolve(discordLog.fail("[COULDN'T CONNECT TO DISCORD]"));
 
-                discordLog.succeed("[LOGGED INTO DISCORD]");
+                discordLog.succeed("[LOGGING INTO DISCORD]");
 
                 const oauth2Log = logger({
                     text: "[LOGGED INTO OAUTH2]",
