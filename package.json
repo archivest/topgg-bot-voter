@@ -21,6 +21,7 @@
         "ora": "^5.0.0",
         "puppeteer": "^5.2.1",
         "puppeteer-extra": "^3.1.13",
+        "puppeteer-extra-plugin-adblocker": "^2.11.6",
         "puppeteer-extra-plugin-stealth": "^2.5.0"
     }
 }
