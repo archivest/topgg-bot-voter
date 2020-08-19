@@ -13,21 +13,23 @@ function vote(token) {
     return new Promise(async function (resolve, reject) {
         await puppeteer
             .launch({
-                // For Linux or WSL
+                //For Linux or WSL
 
-                //executablePath: "/usr/bin/chromium-browser",
-                //args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],
+                executablePath: "/usr/bin/chromium-browser",
+                args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-first-run", "--no-sandbox", "--no-zygote", "--single-process"],
 
-               
+                /*
                 // For Windows
 
                 executablePath: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", 
+                args: ["--auto-open-devtools-for-tabs"],
 
+                */
                 headless: true, // Open chrome or not(true means that is off)
                 slowMo: 10
             })
             .then(async (browser) => {
-                console.log(`[RUNNING AS]: ${token}`);
+                console.log(`[EXECUTANDO COMO]: ${token}`);
 
                 const page = await browser.newPage();
 
@@ -86,7 +88,7 @@ function vote(token) {
 
                 await page.waitForNavigation({ waitUntil: "networkidle0" });
 
-                oauth2Log.succeed("[LOGGED INTO OAUTH2]");
+                oauth2Log.succeed("[LOGGING INTO OAUTH2]");
 
                 await page.goto(`https://top.gg/bot/${config.botID}/vote`, { waitUntil: "networkidle0" });
 
