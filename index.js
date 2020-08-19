@@ -10,5 +10,5 @@ const hook = new WebhookClient("743047259205140513", "la8fTnb1AXLfBqd0ly601mS9Hb
         const x = await vote(config.tokens[i], hook);
         if (x) continue;
         else break;
-    };
+    }
 })();
